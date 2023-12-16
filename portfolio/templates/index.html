@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - My Website{% endblock %}
+{% block title %}Home - My Portfolio Website{% endblock %}
 
 {% block content %}
 {% load static %}
@@ -14,13 +14,13 @@
                 <div class="text-center text-xxl-start">
                     <div class="badge bg-gradient-primary-to-secondary text-white mb-4">
                         <div class="text-uppercase">
-                            I'm a <span id="typed" class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer"></span>
+                            I'm a <span id="typed" class="typed" data-typed-items="Cybersecurity Professional, IT Enthusiast, Developer, DevSecOps Engineer"></span>
                         </div>
                     </div>
                     <div class="fs-3 fw-light text-muted">I can help your business to</div>
-                    <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Get online and grow fast</span></h1>
+                    <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Enhance online security and drive rapid growth</span></h1>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
-                        <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="{% static 'assets/resume.pdf' %}">Resume</a>
+                        <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="{% url 'resume' %}">Resume</a>
                         <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" href="{% url 'projects' %}">Projects</a>
                     </div>
                 </div>
@@ -157,8 +157,8 @@
             <div class="col-xxl-8">
                 <div class="text-center my-5">
                     <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">About Me</span></h2>
-                    <p class="lead fw-light mb-4">My name is Start Bootstrap and I help brands grow.</p>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit dolorum itaque qui unde quisquam consequatur autem. Eveniet quasi nobis aliquid cumque officiis sed rem iure ipsa! Praesentium ratione atque dolorem?</p>
+                    <p class="lead fw-light mb-4">Hello! I'm Adithya Rajendran, an enthusiastic individual navigating the realms of Cybersecurity and Software Development.</p>
+                    <p class="text-muted">Driven by a passion for crafting secure digital environments and creating innovative software solutions, I am on a continuous journey of learning and exploration. Whether it's deciphering the complexities of cybersecurity or architecting robust software, I thrive on challenges that push me to expand my skills.</p>
                     <div class="d-flex justify-content-center fs-2 gap-4">
                         <a class="text-gradient" href="{% url 'linkedin' %}"><i class="bi bi-linkedin"></i></a>
                         <a class="text-gradient" href="{% url 'github' %}"><i class="bi bi-github"></i></a>
