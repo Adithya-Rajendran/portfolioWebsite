@@ -1,8 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Education, SkillLanguage, Projects, Experiences, Skill
 
 
 # Create your views here.
+
+def linkedin_redirect(request):
+    return redirect('https://www.linkedin.com/in/adithya-rajendran/')
+
+
+def github_redirect(request):
+    return redirect('https://github.com/Adithya-Rajendran')
+
+
 def home(request):
     return render(request, 'index.html')
 
