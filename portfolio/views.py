@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Education, SkillLanguage, Projects, Experiences, Skill
+from .forms import ContactForm
 
 
 # Create your views here.
-
 def linkedin_redirect(request):
     return redirect('https://www.linkedin.com/in/adithya-rajendran/')
 
@@ -17,7 +17,18 @@ def home(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            print("form is valid")
+            return redirect('contact')
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact.html', {
+        'form': form,
+    })
 
 
 def projects(request):
