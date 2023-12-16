@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# macOS
+.DS_Store
+
+# PyCharm files
+.idea/
+
+# SQLite database file
+db.sqlite3
+
+# Logs
+*.log
+
+# Virtual environment
+.venv/
+
+# Media files
+media/
+
+# Temporary files
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Compiled Python files
+*.pyc
+
+# Ignore the local settings file
+local_settings.py
+
+# Ignore Django migration files
+**/migrations/
+
+# Ignore pipenv virtual environment
+Pipfile.lock

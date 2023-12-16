@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Resume - My Website{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<!-- Page Content-->
+<div class="container px-5 my-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Resume</span></h1>
+    </div>
+    <div class="row gx-5 justify-content-center">
+        <div class="col-lg-11 col-xl-9 col-xxl-8">
+            <!-- Experience Section-->
+            <section>
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h2 class="text-primary fw-bolder mb-0">Experience</h2>
+                    <!-- Download resume button-->
+                    <!-- Note: Set the link href target to a PDF file within your project-->
+                    <a class="btn btn-primary px-4 py-3" href="{% static 'assets/resume.pdf' %}">
+                        <div class="d-inline-block bi bi-download me-2"></div>
+                        Download Resume
+                    </a>
+                </div>
+                <!-- Loop through each experience instance -->
+                {% for experience in experiences %}
+                    <!-- Experience Card -->
+                    <div class="card shadow border-0 rounded-4 mb-5">
+                        <div class="card-body p-5">
+                            <div class="row align-items-center gx-5">
+                                <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                    <div class="bg-light p-4 rounded-4">
+                                        <!-- Display experience details -->
+                                        <div class="text-primary fw-bolder mb-2">{{ experience.start_year }} - {% if experience.end_year %}{{ experience.end_year }}{% else %}Present{% endif %}</div>
+                                        <div class="small fw-bolder">{{ experience.job_title }}</div>
+                                        <div class="small text-muted">{{ experience.employer }}</div>
+                                        <div class="small text-muted">{{ experience.location }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <!-- Display experience description -->
+                                    <div>{{ experience.description }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </section>
+            <!-- Education Section-->
+            <section>
+                <h2 class="text-secondary fw-bolder mb-4">Education</h2>
+            
+                <!-- Loop through each education instance -->
+                {% for education in educations %}
+                    <!-- Education Card -->
+                    <div class="card shadow border-0 rounded-4 mb-5">
+                        <div class="card-body p-5">
+                            <div class="row align-items-center gx-5">
+                                <div class="col text-center text-lg-start mb-4 mb-lg-0">
+                                    <div class="bg-light p-4 rounded-4">
+                                        <!-- Display education details -->
+                                        <div class="text-secondary fw-bolder mb-2">{{ education.start_year }} - {% if education.end_year %}{{ education.end_year }}{% else %}Present{% endif %}</div>
+                                        <div class="mb-2">
+                                            <div class="small fw-bolder">{{ education.institution }}</div>
+                                            <div class="small text-muted">{{ education.location }}</div>
+                                        </div>
+                                        <div class="fst-italic">
+                                            <div class="small text-muted">{{ education.degree_type }}</div>
+                                            <div class="small text-muted">{{ education.field_of_study }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <!-- Display education description -->
+                                    <div>{{ education.description }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </section>
+            <!-- Divider-->
+            <div class="pb-5"></div>
+            <!-- Skills Section-->
+            <section>
+                <!-- Skillset Card-->
+                <div class="card shadow border-0 rounded-4 mb-5">
+                    <div class="card-body p-5">
+                        <!-- Professional skills list-->
+                        {% include '_skills_section.html' with section_title="Professional Skills" items=skills %}
+                        
+                        <!-- Languages list-->
+                        {% include '_skills_section.html' with section_title="Languages" items=languages %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
