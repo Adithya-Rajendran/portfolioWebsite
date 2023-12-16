@@ -35,7 +35,8 @@ media/
 local_settings.py
 
 # Ignore Django migration files
-**/migrations/
+migrations/*
+!migrations/__init__.py
 
 # Ignore pipenv virtual environment
 Pipfile.lock
