@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Education, SkillLanguage, Projects, Experiences, Skill
 from .forms import ContactForm
 
@@ -22,6 +23,7 @@ def contact(request):
 
         if form.is_valid():
             print("form is valid")
+            messages.success(request, 'Your message was successfully submitted!')
             return redirect('contact')
     else:
         form = ContactForm()
