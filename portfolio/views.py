@@ -31,7 +31,7 @@ def contact(request):
             phone = form.cleaned_data['phone']
             content = form.cleaned_data['message']
 
-            html_message = render_to_string('email_template.html', {
+            html_message = render_to_string('extra/email_template.html', {
                 'name': name,
                 'email': email,
                 'phone': phone,
