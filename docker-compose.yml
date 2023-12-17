@@ -17,6 +17,7 @@ services:
     secrets:
       - email_user
       - email_pass
+      - secret_key
       - postgres_user
       - postgres_pass
     depends_on:
