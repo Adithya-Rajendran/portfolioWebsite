@@ -34,6 +34,9 @@ media/
 # Ignore the local settings file
 local_settings.py
 
+# Ignore secrets files
+secrets/
+
 # Ignore Django migration files
 migrations/*
 !migrations/__init__.py
