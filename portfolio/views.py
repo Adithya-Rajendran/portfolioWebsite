@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
 from .models import Education, SkillLanguage, Projects, Experiences, Skill
 from .forms import ContactForm
 
@@ -22,8 +25,29 @@ def contact(request):
         form = ContactForm(request.POST)
 
         if form.is_valid():
-            print("form is valid")
             messages.success(request, 'Your message was successfully submitted!')
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data['phone']
+            content = form.cleaned_data['message']
+
+            html_message = render_to_string('email_template.html', {
+                'name': name,
+                'email': email,
+                'phone': phone,
+                'content': content,
+            })
+
+            message = 'Name: {}\nEmail: {}\nPhone: {}\nMessage: {}'.format(name, email, phone, content)
+
+            send_mail(
+                'Contact Form for My Website',
+                message,
+                'from@yourdjangoapp.com',
+                ['to@yourbestuser.com'],
+                fail_silently=False,
+                html_message=html_message,
+            )
             return redirect('contact')
     else:
         form = ContactForm()
