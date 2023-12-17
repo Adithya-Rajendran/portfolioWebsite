@@ -13,6 +13,7 @@ services:
       - EMAIL_HOST_PASSWORD_FILE=/run/secrets/email_pass
       - POSTGRES_USER_FILE=/run/secrets/postgres_user
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_pass
+      - SECRET_KEY_FILE=/run/secrets/secret_key
     secrets:
       - email_user
       - email_pass
@@ -42,6 +43,8 @@ secrets:
     file: ./secrets/email_user.txt
   email_pass:
     file: ./secrets/email_password.txt
+  secret_key:
+    file: ./secrets/django_secret.txt
   postgres_user:
     file: ./secrets/postgres_user.txt
   postgres_pass:

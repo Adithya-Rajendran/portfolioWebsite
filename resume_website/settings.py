@@ -42,8 +42,15 @@ print(EMAIL_HOST_USER, EMAIL_HOST_PASSWORD)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+
+SECRET_KEY_FILE = os.environ.get('SECRET_KEY_FILE', '')
+
+# Read the contents of the secret files
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--vwjou)15$5te_tyhfz5v1bgk=jbvw+rjfvi2sd9%h3vn&okow'
+if SECRET_KEY_FILE:
+    with open(SECRET_KEY_FILE, 'r') as key_file:
+        SECRET_KEY = key_file.read().strip()
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
