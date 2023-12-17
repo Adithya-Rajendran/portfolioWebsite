@@ -9,18 +9,35 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = config('EMAIL_PORT', default='', cast=int)
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_PORT = 2525
+
+EMAIL_HOST_USER_FILE = os.environ.get('EMAIL_HOST_USER_FILE', '')
+EMAIL_HOST_PASSWORD_FILE = os.environ.get('EMAIL_HOST_PASSWORD_FILE', '')
+
+# Read the contents of the secret files
+if EMAIL_HOST_USER_FILE:
+    with open(EMAIL_HOST_USER_FILE, 'r') as user_file:
+        EMAIL_HOST_USER = user_file.read().strip()
+else:
+    # Fall back to regular environment variable
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+
+if EMAIL_HOST_PASSWORD_FILE:
+    with open(EMAIL_HOST_PASSWORD_FILE, 'r') as password_file:
+        EMAIL_HOST_PASSWORD = password_file.read().strip()
+else:
+    # Fall back to regular environment variable
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+
+print(EMAIL_HOST_USER, EMAIL_HOST_PASSWORD)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -82,14 +99,36 @@ WSGI_APPLICATION = 'resume_website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+POSTGRES_USER_FILE = os.environ.get('POSTGRES_USER_FILE', '')
+POSTGRES_PASSWORD_FILE = os.environ.get('POSTGRES_PASSWORD_FILE', '')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Read the contents of the secret files
+if POSTGRES_USER_FILE and POSTGRES_PASSWORD_FILE:
+    print("Using PostgreSQL")
+    with open(POSTGRES_USER_FILE, 'r') as user_file:
+        POSTGRES_USER = user_file.read().strip()
+
+    with open(POSTGRES_PASSWORD_FILE, 'r') as pass_file:
+        POSTGRES_PASSWORD = pass_file.read().strip()
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'djangodb',
+            'USER': POSTGRES_USER,
+            'PASSWORD': POSTGRES_PASSWORD,
+            'HOST': 'db',
+            'PORT': '5432',
+        }
     }
-}
-
+else:
+    print("Using SQLite3")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

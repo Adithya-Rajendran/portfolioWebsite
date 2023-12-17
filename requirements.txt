@@ -1,2 +1,2 @@
 django~=5.0
-python-decouple~=3.8
+psycopg~=3.1.15

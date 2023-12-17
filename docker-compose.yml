@@ -9,9 +9,40 @@ services:
       - "8000:8000"
     environment:
       - DJANGO_SETTINGS_MODULE=resume_website.settings
+      - EMAIL_HOST_USER_FILE=/run/secrets/email_user
+      - EMAIL_HOST_PASSWORD_FILE=/run/secrets/email_pass
+      - POSTGRES_USER_FILE=/run/secrets/postgres_user
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_pass
     secrets:
-      - email_secrets
+      - email_user
+      - email_pass
+      - postgres_user
+      - postgres_pass
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: 'djangodb'
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_pass
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $$(cat $${POSTGRES_USER_FILE})" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    secrets:
+      - postgres_user
+      - postgres_pass
 
 secrets:
-  email_secrets:
-    file: secrets/email_secrets.txt
+  email_user:
+    file: ./secrets/email_user.txt
+  email_pass:
+    file: ./secrets/email_password.txt
+  postgres_user:
+    file: ./secrets/postgres_user.txt
+  postgres_pass:
+    file: ./secrets/postgres_password.txt
