@@ -5,7 +5,9 @@ from django.db import models
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image_url = models.URLField()
+    image_height = models.PositiveIntegerField(blank=True, editable=False, default=400)
+    image_width = models.PositiveIntegerField(blank=True, editable=False, default=300)
+    image_url = models.ImageField(upload_to='uploads/', height_field='image_height', width_field='image_width')
 
     def __str__(self):
         return self.name

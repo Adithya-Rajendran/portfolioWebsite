@@ -22,7 +22,7 @@
                                 <h2 class="fw-bolder">{{ project.name }}</h2>
                                 <p>{{ project.description }}</p>
                             </div>
-                            <img class="img-fluid" src="{{ project.image_url }}" alt="Project Image" />
+                            <img src="{{ project.image_url.url }}" alt="{{ project.name }}" height="400" />
                         </div>
                     </div>
                 </div>
