@@ -58,7 +58,7 @@ def contact(request):
 
 
 def projects(request):
-    projects = Projects.objects.all()
+    projects = Project.objects.all()
     return render(request, 'projects.html', {
         'projects': projects,
     })
@@ -67,7 +67,7 @@ def projects(request):
 def resume(request):
     educations = Education.objects.all()
     languages = SkillLanguage.objects.all()
-    experiences = Experiences.objects.all()
+    experiences = Experience.objects.all()
     skills = Skill.objects.all()
 
     return render(request, 'resume.html', {
