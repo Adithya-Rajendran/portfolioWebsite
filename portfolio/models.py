@@ -13,7 +13,7 @@ class Project(models.Model):
 
 class Education(models.Model):
     institution = models.CharField(max_length=255)
-    location = models.CharField(blank=True, max_length=255)
+    location = models.CharField(max_length=255)
     degree_type = models.CharField(max_length=255)
     field_of_study = models.CharField(max_length=255)
     start_year = models.IntegerField()
@@ -27,7 +27,7 @@ class Education(models.Model):
 class Experience(models.Model):
     job_title = models.CharField(max_length=255)
     employer = models.CharField(max_length=255)
-    location = models.CharField(blank=True, max_length=255)
+    location = models.CharField(max_length=255)
     start_year = models.IntegerField()
     end_year = models.IntegerField(blank=True, null=True)
     description = models.TextField()
