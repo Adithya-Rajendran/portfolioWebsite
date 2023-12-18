@@ -36,6 +36,7 @@ local_settings.py
 
 # Ignore secrets files
 secrets/
+.env
 
 # Ignore Django migration files
 migrations/*

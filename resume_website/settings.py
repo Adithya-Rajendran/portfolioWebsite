@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-import os
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -17,39 +17,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 EMAIL_PORT = 2525
-
-EMAIL_HOST_USER_FILE = os.environ.get('EMAIL_HOST_USER_FILE', '')
-EMAIL_HOST_PASSWORD_FILE = os.environ.get('EMAIL_HOST_PASSWORD_FILE', '')
-
-# Read the contents of the secret files
-if EMAIL_HOST_USER_FILE:
-    with open(EMAIL_HOST_USER_FILE, 'r') as user_file:
-        EMAIL_HOST_USER = user_file.read().strip()
-else:
-    # Fall back to regular environment variable
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-
-if EMAIL_HOST_PASSWORD_FILE:
-    with open(EMAIL_HOST_PASSWORD_FILE, 'r') as password_file:
-        EMAIL_HOST_PASSWORD = password_file.read().strip()
-else:
-    # Fall back to regular environment variable
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-
-print(EMAIL_HOST_USER, EMAIL_HOST_PASSWORD)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-
-SECRET_KEY_FILE = os.environ.get('SECRET_KEY_FILE', '')
-
 # Read the contents of the secret files
 # SECURITY WARNING: keep the secret key used in production secret!
-if SECRET_KEY_FILE:
-    with open(SECRET_KEY_FILE, 'r') as key_file:
-        SECRET_KEY = key_file.read().strip()
+SECRET_KEY = config('SECRET_KEY', default='')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -106,8 +83,8 @@ WSGI_APPLICATION = 'resume_website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-POSTGRES_USER_FILE = os.environ.get('POSTGRES_USER_FILE', '')
-POSTGRES_PASSWORD_FILE = os.environ.get('POSTGRES_PASSWORD_FILE', '')
+POSTGRES_USER_FILE = config('POSTGRES_USER_FILE', default='')
+POSTGRES_PASSWORD_FILE = config('POSTGRES_PASSWORD_FILE', default='')
 
 # Read the contents of the secret files
 if POSTGRES_USER_FILE and POSTGRES_PASSWORD_FILE:
