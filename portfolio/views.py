@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-from .models import Education, SkillLanguage, Projects, Experiences, Skill
+from .models import Education, SkillLanguage, Project, Experience, Skill
 from .forms import ContactForm
 
 
