@@ -28,17 +28,21 @@ def contact(request):
             messages.success(request, 'Your message was successfully submitted!')
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
+            phone = str(form.cleaned_data['phone'])
             content = form.cleaned_data['message']
 
-            html_message = render_to_string('extra/email_template.html', {
+            html_message = render_to_string('extra/_email_template.html', {
                 'name': name,
                 'email': email,
                 'phone': phone,
                 'content': content,
             })
 
-            message = 'Name: {}\nEmail: {}\nPhone: {}\nMessage: {}'.format(name, email, phone, content)
+            message = ('Contact Form Submission\n'
+                       'Name: {}\n'
+                       'Email: {}\n'
+                       'Phone: {}\n'
+                       'Message: {}').format(name, email, phone, content)
 
             send_mail(
                 'Contact Form for My Website',
