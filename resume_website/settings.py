@@ -43,6 +43,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost",
     "10.0.0.44",
+    "adithya-rajendran.com",
 ]
 
 
