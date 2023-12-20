@@ -43,3 +43,4 @@ migrations/*
 
 # Ignore pipenv virtual environment
 Pipfile.lock
+nginx
