@@ -14,8 +14,13 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-MEDIA_ROOT = ''
-MEDIA_URL = ''
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'
+STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = 'static/'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -92,7 +97,6 @@ POSTGRES_PASSWORD_FILE = config('POSTGRES_PASSWORD_FILE', default='')
 
 # Read the contents of the secret files
 if POSTGRES_USER_FILE and POSTGRES_PASSWORD_FILE:
-    print("Using PostgreSQL")
     with open(POSTGRES_USER_FILE, 'r') as user_file:
         POSTGRES_USER = user_file.read().strip()
 
@@ -148,11 +152,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
