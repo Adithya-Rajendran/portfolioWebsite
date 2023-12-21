@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-from .models import Education, SkillLanguage, Project, Experience, Skill
+from .models import Education, SkillLanguage, Project, Experience, Skill, AboutMe
 from .forms import ContactForm
 
 
@@ -17,7 +17,10 @@ def github_redirect(request):
 
 
 def home(request):
-    return render(request, 'index.html')
+    aboutme = AboutMe.objects.first()
+    return render(request, 'index.html', {
+        'aboutme': aboutme
+    })
 
 
 def contact(request):

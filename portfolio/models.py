@@ -1,6 +1,33 @@
 from django.db import models
 
 
+class AboutMe(models.Model):
+    passion = models.TextField()
+    about = models.TextField()
+    summary = models.TextField()
+    image = models.ImageField(upload_to='images/', null=True, blank=True, default='images/profile.png')
+
+    def save(self, *args, **kwargs):
+        # Ensure there is only one instance in the database
+        if AboutMe.objects.exists() and not self.pk:
+            # If an instance already exists, update its fields
+            existing_instance = AboutMe.objects.first()
+            existing_instance.passion = self.passion
+            existing_instance.about = self.about
+            existing_instance.summary = self.summary
+            if self.image is not None:
+                existing_instance.image = self.image
+            existing_instance.save()
+            return existing_instance
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "About Me"
+
+    class Meta:
+        verbose_name_plural = "About Me"
+
+
 # Create your models here.
 class Project(models.Model):
     name = models.CharField(max_length=255)
