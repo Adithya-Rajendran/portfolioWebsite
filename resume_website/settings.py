@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from decouple import config
 from pathlib import Path
 
@@ -17,10 +18,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-MEDIA_ROOT = BASE_DIR / 'static/media'
-MEDIA_URL = 'media/'
-STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = STATIC_ROOT + 'media'
 
 STORAGES = {
     "default": {
