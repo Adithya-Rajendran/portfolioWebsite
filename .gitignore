@@ -41,6 +41,7 @@ secrets/
 # Ignore Django migration files
 migrations/*
 !migrations/__init__.py
+staticfiles_build
 
 # Ignore pipenv virtual environment
 Pipfile.lock
