@@ -50,7 +50,7 @@ SECRET_KEY = config('SECRET_KEY', default='')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -107,35 +107,26 @@ WSGI_APPLICATION = 'resume_website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-POSTGRES_USER_FILE = config('POSTGRES_USER_FILE', default='')
-POSTGRES_PASSWORD_FILE = config('POSTGRES_PASSWORD_FILE', default='')
 
-# Read the contents of the secret files
-if POSTGRES_USER_FILE and POSTGRES_PASSWORD_FILE:
-    with open(POSTGRES_USER_FILE, 'r') as user_file:
-        POSTGRES_USER = user_file.read().strip()
+POSTGRES_DATABASE = config('POSTGRES_DATABASE', default='')
+POSTGRES_USER = config('POSTGRES_USER', default='')
+POSTGRES_PASSWORD = config('POSTGRES_PASSWORD', default='')
+POSTGRES_HOST = config('POSTGRES_HOST', default='')
 
-    with open(POSTGRES_PASSWORD_FILE, 'r') as pass_file:
-        POSTGRES_PASSWORD = pass_file.read().strip()
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'djangodb',
-            'USER': POSTGRES_USER,
-            'PASSWORD': POSTGRES_PASSWORD,
-            'HOST': 'db',
-            'PORT': '5432',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': POSTGRES_DATABASE,
+        'USER': POSTGRES_USER,
+        'PASSWORD': POSTGRES_PASSWORD,
+        'HOST': POSTGRES_HOST,
+        'PORT': '5432',
+    },
+    'sqlite': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    print("Using SQLite3")
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
