@@ -50,8 +50,8 @@ def contact(request):
             send_mail(
                 'Contact Form for My Website',
                 message,
-                'from@yourdjangoapp.com',
-                ['to@yourbestuser.com'],
+                'giveaways.adithyaraj@gmail.com',
+                ['adithyaraj@gmail.com', 'work@adithya-rajendran.com'],
                 fail_silently=False,
                 html_message=html_message,
             )
