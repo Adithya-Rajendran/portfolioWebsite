@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Education, SkillLanguage, Project, Experience, Skill, AboutMe
 
 # Register your models here.
