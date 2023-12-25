@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 
-from .models import Education, SkillLanguage, Project, Experience, Skill, AboutMe
 from .forms import ContactForm
+from .models import Education, SkillLanguage, Project, Experience, Skill, AboutMe
 
 
 # Create your views here.

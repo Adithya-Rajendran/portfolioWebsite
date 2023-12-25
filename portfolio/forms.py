@@ -1,6 +1,6 @@
 from django import forms
-from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 
 
 class ContactForm(forms.Form):
