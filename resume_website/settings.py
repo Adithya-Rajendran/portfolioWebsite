@@ -29,7 +29,7 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",   # ADD CACHING SUPPORT BEFORE DEPLOYMENT
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
@@ -54,7 +54,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
-    "10.0.0.44",
     "adithya-rajendran.com",
 ]
 
