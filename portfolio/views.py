@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 
 from .forms import ContactForm
 from .models import Education, SkillLanguage, Project, Experience, Skill, AboutMe
+from decouple import config
 
 
 # Create your views here.
@@ -47,11 +48,15 @@ def contact(request):
                        'Phone: {}\n'
                        'Message: {}').format(name, email, phone, content)
 
+            email_user = config('EMAIL_HOST_USER', default='')
+            my_emails_str = config('MY_EMAILS', default='')
+            my_emails = [email.strip() for email in my_emails_str.split(',')]
+
             send_mail(
                 'Contact Form for My Website',
                 message,
-                'giveaways.adithyaraj@gmail.com',
-                ['adithyaraj@gmail.com', 'work@adithya-rajendran.com'],
+                email_user,
+                my_emails,
                 fail_silently=False,
                 html_message=html_message,
             )
