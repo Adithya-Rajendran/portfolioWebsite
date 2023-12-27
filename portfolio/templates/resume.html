@@ -24,7 +24,7 @@
                     </a>
                 </div>
                 <!-- Loop through each experience instance -->
-                {% for experience in experiences %}
+                {% for experience in experiences[::-1] %}
                     <!-- Experience Card -->
                     <div class="card shadow border-0 rounded-4 mb-5">
                         <div class="card-body p-5">
@@ -52,7 +52,7 @@
                 <h2 class="text-secondary fw-bolder mb-4">Education</h2>
             
                 <!-- Loop through each education instance -->
-                {% for education in educations %}
+                {% for education in educations[::-1] %}
                     <!-- Education Card -->
                     <div class="card shadow border-0 rounded-4 mb-5">
                         <div class="card-body p-5">
