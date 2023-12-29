@@ -45,11 +45,11 @@ python manage.py runserver
 
  6. Access the Website:
 
-Open your browser and go to (127.0.0.1:8000/)[http://127.0.0.1:8000/]
+Open your browser and go to (127.0.0.1:8000)[http://127.0.0.1:8000/]
 
  7. Admin Panel:
 
-Access the Django admin panel at (127.0.0.1:8000/admin/)[http://127.0.0.1:8000/admin/] using the superuser credentials.
+Access the Django admin panel at (127.0.0.1:8000/admin)[http://127.0.0.1:8000/admin/] using the superuser credentials.
 
 ## Project Structure
 
