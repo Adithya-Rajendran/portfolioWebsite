@@ -25,8 +25,7 @@ class ContactForm(forms.Form):
             'class': 'form-control',
             'placeholder': '+1 (555) 555-5555'}
         ),
-        required=False,
-        default_region='US'
+        required=False
     )
 
     message = forms.CharField(
