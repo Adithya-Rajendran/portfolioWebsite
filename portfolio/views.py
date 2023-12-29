@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+from django.http import HttpResponsePermanentRedirect
 
 from .forms import ContactForm
 from .models import Education, SkillLanguage, Project, Experience, Skill, AboutMe
@@ -10,11 +11,11 @@ from decouple import config
 
 # Create your views here.
 def linkedin_redirect(request):
-    return redirect('https://www.linkedin.com/in/adithya-rajendran/')
+    return HttpResponsePermanentRedirect('https://www.linkedin.com/in/adithya-rajendran/')
 
 
 def github_redirect(request):
-    return redirect('https://github.com/Adithya-Rajendran')
+    return HttpResponsePermanentRedirect('https://github.com/Adithya-Rajendran')
 
 
 def home(request):
