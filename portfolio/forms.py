@@ -1,6 +1,6 @@
 from django import forms
 from phonenumber_field.formfields import PhoneNumberField
-from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
+from phonenumber_field.widgets import RegionalPhoneNumberWidget
 
 
 class ContactForm(forms.Form):
@@ -20,8 +20,7 @@ class ContactForm(forms.Form):
     )
 
     phone = PhoneNumberField(
-        region="US",
-        widget=PhoneNumberInternationalFallbackWidget(attrs={
+        widget=RegionalPhoneNumberWidget(region="US", attrs={
             'class': 'form-control',
             'placeholder': '+1 (555) 555-5555'}
         ),
