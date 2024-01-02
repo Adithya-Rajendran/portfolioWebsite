@@ -5,7 +5,7 @@ class AboutMe(models.Model):
     passion = models.TextField()
     about = models.TextField()
     summary = models.TextField()
-    image = models.ImageField(upload_to='images/', null=True, blank=True, default='images/profile.png')
+    image = models.URLField()
 
     def save(self, *args, **kwargs):
         # Ensure there is only one instance in the database
@@ -15,8 +15,7 @@ class AboutMe(models.Model):
             existing_instance.passion = self.passion
             existing_instance.about = self.about
             existing_instance.summary = self.summary
-            if self.image is not None:
-                existing_instance.image = self.image
+            existing_instance.image = self.image
             existing_instance.save()
             return existing_instance
         return super().save(*args, **kwargs)
@@ -32,9 +31,7 @@ class AboutMe(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image_height = models.PositiveIntegerField(blank=True, editable=False, default=400)
-    image_width = models.PositiveIntegerField(blank=True, editable=False, default=300)
-    image_url = models.ImageField(upload_to='uploads/', height_field='image_height', width_field='image_width')
+    image_url = models.URLField()
 
     def __str__(self):
         return self.name
