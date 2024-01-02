@@ -24,6 +24,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = STATIC_ROOT + '/media'
 
+WHITENOISE_AUTOREFRESH = True
+
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -54,7 +56,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
-    ".vercel.app",
+    "*.vercel.app",
     "adithya-rajendran.com",
 ]
 
@@ -158,7 +160,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-PHONENUMBER_DEFAULT_REGION = "US"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

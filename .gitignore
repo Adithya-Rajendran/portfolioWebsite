@@ -9,6 +9,7 @@ __pycache__/
 
 # PyCharm files
 .idea/
+.vscode
 
 # SQLite database file
 db.sqlite3

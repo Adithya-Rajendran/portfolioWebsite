@@ -48,3 +48,4 @@ CMD python3 manage.py makemigrations && \
     python3 manage.py migrate && \
     python manage.py test portfolio && \
     gunicorn resume_website.wsgi:application -b 0.0.0.0:8000 --workers 4
+
