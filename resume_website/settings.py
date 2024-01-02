@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from decouple import config
 from pathlib import Path
 
@@ -18,10 +19,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = STATIC_ROOT / 'media'
+MEDIA_ROOT = STATIC_ROOT + '/media'
+
+WHITENOISE_AUTOREFRESH = True
 
 STORAGES = {
     "default": {
@@ -53,8 +56,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
-    "192.168.146.134",
-    ".vercel.app",
+    "*.vercel.app",
     "adithya-rajendran.com",
 ]
 
@@ -158,7 +160,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-PHONENUMBER_DEFAULT_REGION = "US"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
