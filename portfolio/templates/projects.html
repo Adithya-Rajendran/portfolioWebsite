@@ -22,7 +22,7 @@
                                 <h2 class="fw-bolder">{{ project.name }}</h2>
                                 <p>{{ project.description|linebreaks }}</p>
                             </div>
-                            <img src="{% static 'media/' %}{{ project.image_url }}" alt="{{ project.name }}" width="300" class="rounded-4"/>
+                            <img src="{{ project.image_url }}" alt="{{ project.name }}" width="300" class="rounded-4"/>
                         </div>
                     </div>
                 </div>

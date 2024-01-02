@@ -21,11 +21,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = STATIC_ROOT + '/media'
-
-WHITENOISE_AUTOREFRESH = True
-
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -56,7 +51,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
-    "*.vercel.app",
+    ".vercel.app",
     "adithya-rajendran.com",
 ]
 
