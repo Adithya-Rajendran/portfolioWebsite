@@ -1,6 +1,22 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: 'djangodb'
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_pass
+    user: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $$(cat $${POSTGRES_USER_FILE})" ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    secrets:
+      - postgres_user
+      - postgres_pass
+
   web:
     build:
       context: .
@@ -23,22 +39,6 @@ services:
       timeout: 5s
       retries: 3
 
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: 'djangodb'
-      POSTGRES_USER_FILE: /run/secrets/postgres_user
-      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_pass
-    user: postgres
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $$(cat $${POSTGRES_USER_FILE})" ]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-    secrets:
-      - postgres_user
-      - postgres_pass
-
   nginx:
     image: nginx:latest
     ports:
@@ -46,7 +46,7 @@ services:
     volumes:
       - static_volume:/usr/src/app/static:ro
       - media_volume:/usr/src/app/media:ro
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  # Adjust the path to your nginx configuration
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       web:
         condition: service_healthy
