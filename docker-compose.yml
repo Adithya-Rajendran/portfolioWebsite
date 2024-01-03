@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     user: postgres
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $$(cat $${POSTGRES_USER_FILE})" ]
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER)" ]
       interval: 30s
       timeout: 5s
       retries: 5
@@ -59,7 +59,6 @@ services:
     image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel run
-    user: cloudflared
     environment:
       TUNNEL_TOKEN: ${TUNNEL_TOKEN}
 
