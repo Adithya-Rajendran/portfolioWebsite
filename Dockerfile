@@ -49,14 +49,12 @@ USER django
 # Create directories
 RUN mkdir /usr/src/app/static /usr/src/app/media
 
-# Run any additional commands needed for your application
-RUN python3 manage.py collectstatic --noinput
-
 # Expose port 8000 for the Django application
 EXPOSE 8000
 
 # Run Django migrations and start the development server
-CMD python3 manage.py makemigrations && \
+CMD python3 manage.py collectstatic --noinput && \
+    python3 manage.py makemigrations && \
     python3 manage.py migrate && \
     python manage.py test portfolio && \
     gunicorn resume_website.wsgi:application -b 0.0.0.0:8000 --workers 4

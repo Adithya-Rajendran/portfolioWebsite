@@ -5,17 +5,12 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_DB: 'djangodb'
-      POSTGRES_USER_FILE: /run/secrets/postgres_user
-      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_pass
     user: postgres
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $$(cat $${POSTGRES_USER_FILE})" ]
       interval: 30s
       timeout: 5s
       retries: 5
-    secrets:
-      - postgres_user
-      - postgres_pass
 
   web:
     image: ghcr.io/adithya-rajendran/personal_website:latest
@@ -27,8 +22,7 @@ services:
       - media_volume:/usr/src/app/media
     user: django
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     healthcheck:
       test: [ "CMD", "curl", "--fail", "http://localhost:8000/" ]
       interval: 30s
@@ -42,10 +36,8 @@ services:
       - media_volume:/usr/src/app/media:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      db:
-        condition: service_started
-      web:
-        condition: service_healthy
+      - db
+      - web
 
   tunnel:
     container_name: cloudflared-tunnel
@@ -53,12 +45,6 @@ services:
     restart: unless-stopped
     command: tunnel run
     user: cloudflared
-
-secrets:
-  postgres_user:
-    file: ./secrets/postgres_user.txt
-  postgres_pass:
-    file: ./secrets/postgres_password.txt
 
 volumes:
   static_volume:
