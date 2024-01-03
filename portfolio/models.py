@@ -5,7 +5,7 @@ class AboutMe(models.Model):
     passion = models.TextField()
     about = models.TextField()
     summary = models.TextField()
-    image = models.URLField()
+    image = models.URLField(max_length=500)
 
     def save(self, *args, **kwargs):
         # Ensure there is only one instance in the database
@@ -31,7 +31,7 @@ class AboutMe(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image_url = models.URLField()
+    image_url = models.URLField(max_length=500)
 
     def __str__(self):
         return self.name
