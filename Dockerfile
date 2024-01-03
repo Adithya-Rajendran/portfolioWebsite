@@ -29,6 +29,15 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Create a non-root user
+RUN useradd -ms /bin/bash www-data
+
+# Change ownership of the application directory to the non-root user
+RUN chown -R www-data:www-data /usr/src/app
+
+# Switch to the non-root user
+USER www-data
+
 # Copy the local directory contents into the container
 COPY . .
 
@@ -48,4 +57,3 @@ CMD python3 manage.py makemigrations && \
     python3 manage.py migrate && \
     python manage.py test portfolio && \
     gunicorn resume_website.wsgi:application -b 0.0.0.0:8000 --workers 4
-
