@@ -18,12 +18,8 @@ services:
       - postgres_pass
 
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/adithya-rajendran/personal_website:latest
     restart: unless-stopped
-    expose:
-      - "8000"
     environment:
       - DJANGO_SETTINGS_MODULE=resume_website.settings
     volumes:
@@ -41,8 +37,6 @@ services:
 
   nginx:
     image: nginx:latest
-    ports:
-      - "80:80"
     volumes:
       - static_volume:/usr/src/app/static:ro
       - media_volume:/usr/src/app/media:ro
