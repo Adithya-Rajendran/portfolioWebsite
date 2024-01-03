@@ -15,7 +15,9 @@ services:
       retries: 5
 
   web:
-    image: ghcr.io/adithya-rajendran/personal_website:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
     environment:
       - DJANGO_SETTINGS_MODULE=resume_website.settings
@@ -34,7 +36,8 @@ services:
       - media_volume:/usr/src/app/media
     user: django
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD", "curl", "--fail", "http://localhost:8000/" ]
       interval: 30s
@@ -48,8 +51,10 @@ services:
       - media_volume:/usr/src/app/media:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - db
-      - web
+      db:
+        condition: service_started
+      web:
+        condition: service_healthy
 
   tunnel:
     container_name: cloudflared-tunnel
