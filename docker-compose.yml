@@ -51,14 +51,12 @@ services:
       web:
         condition: service_healthy
 
-  # tunnel:
-  #   container_name: cloudflared-tunnel
-  #   image: cloudflare/cloudflared
-  #   restart: unless-stopped
-  #   command: tunnel run
-  #   environment:
-  #     - TUNNEL_TOKEN=mytokengoeshere
-  #   user: cloudflared
+  tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    user: cloudflared
 
 secrets:
   postgres_user:

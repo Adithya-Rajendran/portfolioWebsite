@@ -46,6 +46,9 @@ RUN chown -R django:django /usr/src/app
 # Switch to the non-root user
 USER django
 
+# Create directories
+RUN mkdir /usr/src/app/static /usr/src/app/media
+
 # Run any additional commands needed for your application
 RUN python3 manage.py collectstatic --noinput
 

@@ -42,7 +42,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
-    ".vercel.app",
     "adithya-rajendran.com",
 ]
 
