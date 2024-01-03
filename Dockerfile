@@ -29,22 +29,22 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Create a non-root user
-RUN useradd -ms /bin/bash www-data
-
-# Change ownership of the application directory to the non-root user
-RUN chown -R www-data:www-data /usr/src/app
-
-# Switch to the non-root user
-USER www-data
-
-# Copy the local directory contents into the container
-COPY . .
-
 # Copy installed dependencies from the builder stage
 COPY --from=builder /usr/src/app/venv /usr/src/app/venv
 
 ENV PATH="/usr/src/app/venv/bin:$PATH"
+
+# Copy the local directory contents into the container
+COPY . .
+
+# Create a non-root user
+RUN useradd -ms /bin/bash django
+
+# Change ownership of the application directory to the non-root user
+RUN chown -R django:django /usr/src/app
+
+# Switch to the non-root user
+USER django
 
 # Run any additional commands needed for your application
 RUN python3 manage.py collectstatic --noinput

@@ -13,7 +13,7 @@ services:
     volumes:
       - static_volume:/usr/src/app/static
       - media_volume:/usr/src/app/media
-    user: www-data
+    user: django
     depends_on:
       db:
         condition: service_healthy
@@ -41,25 +41,24 @@ services:
 
   nginx:
     image: nginx:latest
-    expose:
-      - "80"
+    ports:
+      - "80:80"
     volumes:
       - static_volume:/usr/src/app/static:ro
       - media_volume:/usr/src/app/media:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro  # Adjust the path to your nginx configuration
-    user: nginx
     depends_on:
       web:
         condition: service_healthy
 
-  tunnel:
-    container_name: cloudflared-tunnel
-    image: cloudflare/cloudflared
-    restart: unless-stopped
-    command: tunnel run
-    environment:
-      - TUNNEL_TOKEN=mytokengoeshere
-    user: cloudflared
+  # tunnel:
+  #   container_name: cloudflared-tunnel
+  #   image: cloudflare/cloudflared
+  #   restart: unless-stopped
+  #   command: tunnel run
+  #   environment:
+  #     - TUNNEL_TOKEN=mytokengoeshere
+  #   user: cloudflared
 
 secrets:
   postgres_user:
