@@ -32,7 +32,7 @@ class AboutMe(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image_url = models.ImageField(upload_to='projects/', height_field='image_height', width_field='image_width')
+    image_url = models.ImageField(upload_to='projects/')
 
     def __str__(self):
         return self.name
