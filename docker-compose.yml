@@ -31,8 +31,7 @@ services:
       - media_volume:/usr/src/app/media
     user: django
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     healthcheck:
       test: [ "CMD", "curl", "--fail", "http://localhost:8000/" ]
       interval: 30s
