@@ -4,7 +4,9 @@ services:
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: 'djangodb'
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     user: postgres
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $$(cat $${POSTGRES_USER_FILE})" ]
@@ -17,6 +19,12 @@ services:
     restart: unless-stopped
     environment:
       - DJANGO_SETTINGS_MODULE=resume_website.settings
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=x${EMAIL_HOST_PASSWORD}
+      - EMAIL_PORT=${EMAIL_PORT}
+      - MY_EMAILS=${MY_EMAILS}
+      - SECRET_KEY=${SECRET_KEY}
     volumes:
       - static_volume:/usr/src/app/static
       - media_volume:/usr/src/app/media
@@ -45,6 +53,9 @@ services:
     restart: unless-stopped
     command: tunnel run
     user: cloudflared
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN}
+
 
 volumes:
   static_volume:
