@@ -54,7 +54,6 @@ class PortfolioTestCase(TestCase):
         self.assertEqual(mail.outbox[0].subject, 'Contact Form for My Website')
 
         # Check if the email contains the expected content
-        self.assertIn('John Doe', mail.outbox[0].body)
-        self.assertIn('john@example.com', mail.outbox[0].body)
-        self.assertIn('+12015550123', mail.outbox[0].body)
-        self.assertIn('This is a test message.', mail.outbox[0].body)
+        expected_email_content = ['John Doe', 'john@example.com', '+12015550123', 'This is a test message.']
+        for content in expected_email_content:
+            self.assertIn(content, mail.outbox[0].body)
