@@ -26,6 +26,10 @@ db.sqlite3
 *.pyd
 *.db
 
+# Dockerfile
+Dockerfile
+docker-compose.yml
+
 # Compiled Python files
 *.pyc
 
@@ -34,6 +38,7 @@ local_settings.py
 
 # Ignore secrets files
 secrets/
+.env
 
 # Ignore Django migration files
 migrations/*
