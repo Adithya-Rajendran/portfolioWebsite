@@ -92,10 +92,10 @@ WSGI_APPLICATION = 'resume_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-POSTGRES_DATABASE = config('POSTGRES_DATABASE', default='')
-POSTGRES_USER = config('POSTGRES_USER', default='')
-POSTGRES_PASSWORD = config('POSTGRES_PASSWORD', default='')
-POSTGRES_HOST = config('POSTGRES_HOST', default='')
+POSTGRES_DATABASE = str(config('POSTGRES_DATABASE', default=''))
+POSTGRES_USER = str(config('POSTGRES_USER', default=''))
+POSTGRES_PASSWORD = str(config('POSTGRES_PASSWORD', default=''))
+POSTGRES_HOST = str(config('POSTGRES_HOST', default=''))
 
 DATABASES = {
     'default': {
@@ -106,10 +106,6 @@ DATABASES = {
         'HOST': POSTGRES_HOST,
         'PORT': '5432',
     },
-    'sqlite': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
 }
 
 # Password validation
