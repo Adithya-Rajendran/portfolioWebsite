@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-import os
 from decouple import config
 from pathlib import Path
 
@@ -19,22 +18,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATIC_ROOT = BASE_DIR / 'static'
 
-STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST = str(config('EMAIL_HOST', default=''))
+EMAIL_HOST_USER = str(config('EMAIL_HOST_USER', default=''))
+EMAIL_HOST_PASSWORD = str(config('EMAIL_HOST_PASSWORD', default=''))
 EMAIL_PORT = int(config('EMAIL_PORT', default=''))
 EMAIL_USE_TLS = True
 
@@ -45,16 +37,19 @@ EMAIL_USE_TLS = True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = [
     "localhost",
-    ".vercel.app",
     "adithya-rajendran.com",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://adithya-rajendran.com",
+    "http://adithya-rajendran.com",
+    "http://localhost:8000",
+]
 
 # Application definition
 
@@ -64,7 +59,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
     'phonenumber_field',
     'portfolio',
@@ -72,7 +66,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -105,10 +98,10 @@ WSGI_APPLICATION = 'resume_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-POSTGRES_DATABASE = config('POSTGRES_DATABASE', default='')
-POSTGRES_USER = config('POSTGRES_USER', default='')
-POSTGRES_PASSWORD = config('POSTGRES_PASSWORD', default='')
-POSTGRES_HOST = config('POSTGRES_HOST', default='')
+POSTGRES_DATABASE = str(config('POSTGRES_DATABASE', default=''))
+POSTGRES_USER = str(config('POSTGRES_USER', default=''))
+POSTGRES_PASSWORD = str(config('POSTGRES_PASSWORD', default=''))
+POSTGRES_HOST = str(config('POSTGRES_HOST', default=''))
 
 DATABASES = {
     'default': {
@@ -119,10 +112,6 @@ DATABASES = {
         'HOST': POSTGRES_HOST,
         'PORT': '5432',
     },
-    'sqlite': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
 }
 
 # Password validation
@@ -154,7 +143,6 @@ TIME_ZONE = 'America/Los_Angeles'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

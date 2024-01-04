@@ -29,23 +29,32 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Copy the local directory contents into the container
-COPY . .
-
 # Copy installed dependencies from the builder stage
 COPY --from=builder /usr/src/app/venv /usr/src/app/venv
 
 ENV PATH="/usr/src/app/venv/bin:$PATH"
 
-# Run any additional commands needed for your application
-RUN python3 manage.py collectstatic --noinput
+# Copy the local directory contents into the container
+COPY . .
+
+# Create a non-root user
+RUN useradd -ms /bin/bash django
+
+# Change ownership of the application directory to the non-root user
+RUN chown -R django:django /usr/src/app
+
+# Switch to the non-root user
+USER django
+
+# Create directories
+RUN mkdir /usr/src/app/static /usr/src/app/media
 
 # Expose port 8000 for the Django application
 EXPOSE 8000
 
 # Run Django migrations and start the development server
-CMD python3 manage.py makemigrations && \
+CMD python3 manage.py collectstatic --noinput && \
+    python3 manage.py makemigrations && \
     python3 manage.py migrate && \
     python manage.py test portfolio && \
     gunicorn resume_website.wsgi:application -b 0.0.0.0:8000 --workers 4
-
