@@ -24,9 +24,9 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_HOST = str(config('EMAIL_HOST', default=''))
+EMAIL_HOST_USER = str(config('EMAIL_HOST_USER', default=''))
+EMAIL_HOST_PASSWORD = str(config('EMAIL_HOST_PASSWORD', default=''))
 EMAIL_PORT = int(config('EMAIL_PORT', default=''))
 EMAIL_USE_TLS = True
 
@@ -43,6 +43,12 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost",
     "adithya-rajendran.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://adithya-rajendran.com",
+    "http://adithya-rajendran.com",
+    "http://localhost:8000",
 ]
 
 # Application definition
