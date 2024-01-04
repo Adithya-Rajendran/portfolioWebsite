@@ -26,6 +26,10 @@ db.sqlite3
 *.pyd
 *.db
 
+# Dockerfile
+Dockerfile
+docker-compose.yml
+
 # Compiled Python files
 *.pyc
 
