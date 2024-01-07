@@ -32,6 +32,7 @@ class AboutMe(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
+    sort = models.IntegerField(default=100)
     image_url = models.ImageField(upload_to='projects/')
 
     def __str__(self):
@@ -43,24 +44,24 @@ class Education(models.Model):
     location = models.CharField(max_length=255)
     degree_type = models.CharField(max_length=255)
     field_of_study = models.CharField(max_length=255)
-    start_year = models.IntegerField()
-    end_year = models.IntegerField(blank=True, null=True)
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)
     description = models.TextField()
 
     def __str__(self):
-        return f"{self.institution} ({self.start_year} - {self.end_year})"
+        return f"{self.institution} ({self.start_date.year} - {self.end_date.year})"
 
 
 class Experience(models.Model):
     job_title = models.CharField(max_length=255)
     employer = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    start_year = models.IntegerField()
-    end_year = models.IntegerField(blank=True, null=True)
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)
     description = models.TextField()
 
     def __str__(self):
-        return f"{self.job_title} at {self.employer} ({self.start_year} - {self.end_year})"
+        return f"{self.job_title} at {self.employer} ({self.start_date.year} - {self.end_date.year})"
 
 
 class SkillLanguage(models.Model):
