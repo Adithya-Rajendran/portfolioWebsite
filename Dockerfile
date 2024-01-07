@@ -1,5 +1,5 @@
 # Stage 1: Build environment
-FROM python:3.9 AS builder
+FROM python:3.11 AS builder
 
 WORKDIR /usr/src/app
 
@@ -21,7 +21,7 @@ RUN pip install --upgrade pip && \
     pip install --upgrade -r requirements.txt
 
 # Stage 2: Production environment
-FROM python:3.9
+FROM python:3.11
 
 WORKDIR /usr/src/app
 
@@ -56,5 +56,5 @@ EXPOSE 8000
 CMD python3 manage.py collectstatic --noinput && \
     python3 manage.py makemigrations && \
     python3 manage.py migrate && \
-    python manage.py test portfolio && \
+    python3 manage.py test portfolio && \
     gunicorn resume_website.wsgi:application -b 0.0.0.0:8000 --workers 4

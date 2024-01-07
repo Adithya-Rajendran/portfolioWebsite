@@ -71,21 +71,21 @@ def contact(request):
 
 
 def projects(request):
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('-sort', 'name')
     return render(request, 'projects.html', {
         'projects': projects,
     })
 
 
 def resume(request):
-    educations = Education.objects.all()
-    languages = SkillLanguage.objects.all()
-    experiences = Experience.objects.all()
-    skills = Skill.objects.all()
+    educations = Education.objects.all().order_by('-start_date')
+    experiences = Experience.objects.all().order_by('-start_date')
+    languages = SkillLanguage.objects.all().order_by('-priority', 'name')
+    skills = Skill.objects.all().order_by('-priority', 'name')
 
     return render(request, 'resume.html', {
         'educations': educations,
-        'languages': languages,
         'experiences': experiences,
+        'languages': languages,
         'skills': skills,
     })

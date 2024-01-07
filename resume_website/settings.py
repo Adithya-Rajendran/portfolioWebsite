@@ -38,7 +38,7 @@ EMAIL_USE_TLS = True
 SECRET_KEY = config('SECRET_KEY', default='')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -102,6 +102,7 @@ POSTGRES_DATABASE = str(config('POSTGRES_DATABASE', default=''))
 POSTGRES_USER = str(config('POSTGRES_USER', default=''))
 POSTGRES_PASSWORD = str(config('POSTGRES_PASSWORD', default=''))
 POSTGRES_HOST = str(config('POSTGRES_HOST', default=''))
+POSTGRES_PORT = int(config('POSTGRES_PORT', default=''))
 
 DATABASES = {
     'default': {
@@ -110,7 +111,7 @@ DATABASES = {
         'USER': POSTGRES_USER,
         'PASSWORD': POSTGRES_PASSWORD,
         'HOST': POSTGRES_HOST,
-        'PORT': '5432',
+        'PORT': POSTGRES_PORT,
     },
 }
 

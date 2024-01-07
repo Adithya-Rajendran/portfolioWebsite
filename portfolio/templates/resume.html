@@ -32,7 +32,7 @@
                                 <div class="col text-center text-lg-start mb-4 mb-lg-0">
                                     <div class="bg-light p-4 rounded-4">
                                         <!-- Display experience details -->
-                                        <div class="text-primary fw-bolder mb-2">{{ experience.start_year }} - {% if experience.end_year %}{{ experience.end_year }}{% else %}Present{% endif %}</div>
+                                        <div class="text-primary fw-bolder mb-2">{{ experience.start_date.year }} - {% if experience.end_date.year %}{{ experience.end_date.year }}{% else %}Present{% endif %}</div>
                                         <div class="small fw-bolder">{{ experience.job_title }}</div>
                                         <div class="small text-muted">{{ experience.employer }}</div>
                                         <div class="small text-muted">{{ experience.location }}</div>
@@ -60,7 +60,7 @@
                                 <div class="col text-center text-lg-start mb-4 mb-lg-0">
                                     <div class="bg-light p-4 rounded-4">
                                         <!-- Display education details -->
-                                        <div class="text-secondary fw-bolder mb-2">{{ education.start_year }} - {% if education.end_year %}{{ education.end_year }}{% else %}Present{% endif %}</div>
+                                        <div class="text-secondary fw-bolder mb-2">{{ education.start_date.year }} - {% if education.end_date.year %}{{ education.end_date.year }}{% else %}Present{% endif %}</div>
                                         <div class="mb-2">
                                             <div class="small fw-bolder">{{ education.institution }}</div>
                                             <div class="small text-muted">{{ education.location }}</div>
