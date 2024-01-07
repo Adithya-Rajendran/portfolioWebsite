@@ -49,7 +49,7 @@ class Education(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return f"{self.institution} ({self.start_date.year} - {self.end_date.year})"
+        return f"{self.institution} ({self.start_date.year} - {self.end_date.year if self.end_date else 'Present'})"
 
 
 class Experience(models.Model):
@@ -61,18 +61,30 @@ class Experience(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return f"{self.job_title} at {self.employer} ({self.start_date.year} - {self.end_date.year})"
+        return f"{self.job_title} at {self.employer} ({self.start_date.year} - {self.end_date.year if self.end_date else 'Present'})"
 
 
 class SkillLanguage(models.Model):
     name = models.CharField(max_length=255)
+    priority_choices = [
+        (1, 'Low'),
+        (2, 'Medium'),
+        (3, 'High'),
+    ]
+    priority = models.IntegerField(choices=priority_choices, default=2)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - Priority: {self.get_priority_display()}"
 
 
 class Skill(models.Model):
     name = models.CharField(max_length=255)
+    priority_choices = [
+        (1, 'Low'),
+        (2, 'Medium'),
+        (3, 'High'),
+    ]
+    priority = models.IntegerField(choices=priority_choices, default=2)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - Priority: {self.get_priority_display()}"
