@@ -5,8 +5,7 @@ class AboutMe(models.Model):
     passion = models.TextField()
     about = models.TextField()
     summary = models.TextField()
-    image = models.ImageField(upload_to='images/', null=True, blank=True, default='images/profile.png')
-
+    image_url = models.URLField(max_length=400)
     def save(self, *args, **kwargs):
         # Ensure there is only one instance in the database
         if AboutMe.objects.exists() and not self.pk:
@@ -33,7 +32,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     sort = models.IntegerField(default=100)
-    image_url = models.ImageField(upload_to='projects/')
+    image_url = models.URLField(max_length=400)
 
     def __str__(self):
         return self.name
